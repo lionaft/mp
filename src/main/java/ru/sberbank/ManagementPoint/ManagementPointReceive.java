@@ -22,6 +22,6 @@ public class ManagementPointReceive{
         reseiveObject = reseiveObject.getAsJsonObject(jsonData);
         responseObject.addProperty("Success", true);
 
-        return Response.status(200).entity(responseObject).build();
+        return Response.status(200).entity(responseObject.toString()).build();
     }
 }
