@@ -33,6 +33,7 @@ public class GenerateProducer {
         }
 
         prop.put("client.id", InetAddress.getLocalHost().getHostName());
+        MainLogger.info("MP",prop.toString());
 
         producer = new KafkaProducer<>(prop);
     }
