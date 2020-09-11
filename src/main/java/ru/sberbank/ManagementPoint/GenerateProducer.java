@@ -5,7 +5,6 @@ import org.apache.kafka.clients.producer.Producer;
 import ru.sberbank.meta.logging.MainLogger;
 import ru.sberbank.meta.logging.MainLoggerFileHandler;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
@@ -15,7 +14,7 @@ import java.util.logging.Level;
 
 public class GenerateProducer {
 
-    private static Producer producer;
+    private static Producer<String,String> producer;
 
     public static void init() throws UnknownHostException {
         Properties prop = new Properties();
@@ -35,7 +34,7 @@ public class GenerateProducer {
 
         prop.put("client.id", InetAddress.getLocalHost().getHostName());
 
-        producer = new KafkaProducer<String,String>(prop);
+        producer = new KafkaProducer<>(prop);
     }
 
     public synchronized static Producer getProducer() throws UnknownHostException {
