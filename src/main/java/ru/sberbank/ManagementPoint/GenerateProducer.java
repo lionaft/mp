@@ -31,9 +31,7 @@ public class GenerateProducer {
         } catch (IOException ex) {
             MainLogger.error("MP", ex);
         }
-        MainLogger.info("MP",prop.toString());
         prop.put("client.id", InetAddress.getLocalHost().getHostName());
-        MainLogger.info("MP",prop.toString());
 
         producer = new KafkaProducer<>(prop);
     }

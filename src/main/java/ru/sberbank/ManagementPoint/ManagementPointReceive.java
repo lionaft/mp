@@ -30,8 +30,7 @@ public class ManagementPointReceive{
 
         responseObject.addProperty("Success", true);
         GenerateProducer.getProducer();
-        MainLogger.info("MP", jsonData);
-        MainLogger.info("MP", receiveObject.toString());
+//        MainLogger.info("MP", receiveObject.toString());
         SendToKafka(receiveObject);
 
         return Response.status(200).entity(responseObject.toString()).build();
@@ -42,12 +41,14 @@ public class ManagementPointReceive{
         try {
             Producer prod = GenerateProducer.getProducer();
             prod.send(record, (metadata, e) -> {
-                if (e != null)
+                if (e != null) {
                     MainLogger.info("MP", String.format("Send failed for record %s : %s", record.toString(), e.toString()));
                     MainLogger.error("MP", e);
+                }
             });
         }
         catch (Exception ex){
+            ex.printStackTrace();
             MainLogger.error("MP", ex);
         }
 
