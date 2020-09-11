@@ -18,8 +18,6 @@ public class GenerateProducer {
     private static Producer producer;
 
     public static void init() throws UnknownHostException {
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        String appConfigPath = rootPath + "config.properties";
         Properties prop = new Properties();
 
         MainLogger.setLevel(Level.ALL);
@@ -29,7 +27,7 @@ public class GenerateProducer {
             MainLogger.error("MP", e);
         }
 
-        try (InputStream input = new FileInputStream(appConfigPath)) {
+        try (InputStream input = GenerateProducer.class.getClassLoader().getResourceAsStream("config.properties")) {
             prop.load(input);
         } catch (IOException ex) {
             MainLogger.error("MP", ex);
