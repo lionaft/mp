@@ -25,15 +25,14 @@ public class ManagementPointReceive{
     @Produces(MediaType.APPLICATION_JSON)
     public Response ReceiveData(String jsonData) throws JsonParseException, UnknownHostException {
 
-        JsonObject reseiveObject = new Gson().fromJson(jsonData, JsonObject.class);
+        JsonObject receiveObject = new Gson().fromJson(jsonData, JsonObject.class);
         JsonObject responseObject = new JsonObject();
 
-        reseiveObject = reseiveObject.getAsJsonObject(jsonData);
         responseObject.addProperty("Success", true);
         GenerateProducer.getProducer();
         MainLogger.info("MP", jsonData);
-        MainLogger.info("MP", reseiveObject.toString());
-        SendToKafka(reseiveObject);
+        MainLogger.info("MP", receiveObject.toString());
+        SendToKafka(receiveObject);
 
         return Response.status(200).entity(responseObject.toString()).build();
     }
