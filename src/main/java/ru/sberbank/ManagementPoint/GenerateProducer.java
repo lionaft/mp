@@ -35,10 +35,10 @@ public class GenerateProducer {
 
         prop.put("client.id", InetAddress.getLocalHost().getHostName());
 
-        producer = new KafkaProducer(prop);
+        producer = new KafkaProducer<String,String>(prop);
     }
 
-    public static Producer getProducer() throws UnknownHostException {
+    public synchronized static Producer getProducer() throws UnknownHostException {
         if (producer== null) {
             init();
             return producer;
