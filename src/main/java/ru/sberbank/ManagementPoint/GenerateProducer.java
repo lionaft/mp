@@ -16,7 +16,7 @@ public class GenerateProducer {
 
     public static void init() throws UnknownHostException {
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        String appConfigPath = rootPath + "app.properties";
+        String appConfigPath = rootPath + "config.properties";
         Properties prop = new Properties();
 
         try (InputStream input = new FileInputStream(appConfigPath)) {
