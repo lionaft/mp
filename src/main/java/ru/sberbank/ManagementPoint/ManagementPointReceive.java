@@ -1,7 +1,9 @@
 package ru.sberbank.ManagementPoint;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import ru.sberbank.meta.logging.MainLogger;
@@ -23,7 +25,7 @@ public class ManagementPointReceive{
     @Produces(MediaType.APPLICATION_JSON)
     public Response ReceiveData(String jsonData) throws JsonParseException, UnknownHostException {
 
-        JsonObject reseiveObject = new JsonObject();
+        JsonObject reseiveObject = new Gson().fromJson(jsonData, JsonObject.class);
         JsonObject responseObject = new JsonObject();
 
         reseiveObject = reseiveObject.getAsJsonObject(jsonData);
