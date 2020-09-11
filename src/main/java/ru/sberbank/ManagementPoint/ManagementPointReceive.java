@@ -26,6 +26,7 @@ public class ManagementPointReceive{
 
         reseiveObject = reseiveObject.getAsJsonObject(jsonData);
         responseObject.addProperty("Success", true);
+        SendToKafka(reseiveObject);
 
         return Response.status(200).entity(responseObject.toString()).build();
     }
