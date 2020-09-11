@@ -38,7 +38,7 @@ public class ManagementPointReceive{
     }
 
     private void SendToKafka(JsonObject json) {
-        final ProducerRecord record = new ProducerRecord("DataWriterQueue", json.get("type"), json.toString());
+        final ProducerRecord record = new ProducerRecord("DataWriterQueue", json.get("type").toString(), json.toString());
         try {
             Producer prod = GenerateProducer.getProducer();
             prod.send(record, (metadata, e) -> {
