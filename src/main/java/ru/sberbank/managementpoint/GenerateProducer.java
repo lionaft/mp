@@ -1,9 +1,8 @@
-package ru.sberbank.ManagementPoint;
+package ru.sberbank.managementpoint;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import ru.sberbank.meta.logging.MainLogger;
-import ru.sberbank.meta.logging.MainLoggerFileHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,15 +15,10 @@ public class GenerateProducer {
 
     private static Producer<String,String> producer;
 
-    public static void init() throws UnknownHostException {
+    private static void init() throws UnknownHostException {
         Properties prop = new Properties();
 
         MainLogger.setLevel(Level.ALL);
-        try {
-            MainLogger.registerLogger(new MainLoggerFileHandler());
-        } catch (IOException e) {
-            MainLogger.error("MP", e);
-        }
 
         try (InputStream input = GenerateProducer.class.getClassLoader().getResourceAsStream("config.properties")) {
             prop.load(input);
@@ -36,7 +30,7 @@ public class GenerateProducer {
         producer = new KafkaProducer<>(prop);
     }
 
-    public synchronized static Producer getProducer() throws UnknownHostException {
+    public static synchronized Producer getProducer() throws UnknownHostException {
         if (producer== null) {
             init();
             return producer;

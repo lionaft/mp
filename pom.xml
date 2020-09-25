@@ -4,13 +4,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ru.sberbank.ManagementPoing</groupId>
+  <groupId>ru.sberbank.managementpoint</groupId>
   <artifactId>mp</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.3</version>
   <packaging>war</packaging>
 
   <name>Management Point</name>
-  <!-- FIXME change it to the project's website -->
   <!--  <url>http://www.example.com</url>-->
 
   <properties>
@@ -27,6 +26,13 @@
   </repositories>
 
   <dependencies>
+    <dependency>
+      <groupId>ru.sberbank</groupId>
+      <artifactId>oslms-utils</artifactId>
+      <version>1.0.1</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/lib/oslms-utils-1.0.1.jar</systemPath>
+    </dependency>
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka_2.12</artifactId>
@@ -81,13 +87,12 @@
 
   <build>
     <finalName>mp</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
       <plugins>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
-        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>

@@ -1,10 +1,13 @@
-package ru.sberbank.ManagementPoint;
+package ru.sberbank.managementpoint;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import ru.sberbank.constants.JsonTypes;
+import ru.sberbank.constants.KafkaTopics;
+import ru.sberbank.constants.json_fields.Common;
 import ru.sberbank.meta.logging.MainLogger;
 
 import javax.ws.rs.Consumes;
@@ -29,14 +32,13 @@ public class ManagementPointReceive{
 
         responseObject.addProperty("Success", true);
         GenerateProducer.getProducer();
-//        MainLogger.info("MP", receiveObject.toString());
         SendToKafka(receiveObject);
 
         return Response.status(200).entity(responseObject.toString()).build();
     }
 
     private void SendToKafka(JsonObject json) {
-        final ProducerRecord record = new ProducerRecord("DataWriterQueue", json.get("type").getAsString(), json.toString());
+        ProducerRecord<String, String> record = GetProducerRecord(json);
         try {
             Producer prod = GenerateProducer.getProducer();
             prod.send(record, (metadata, e) -> {
@@ -47,9 +49,17 @@ public class ManagementPointReceive{
             });
         }
         catch (Exception ex){
-            ex.printStackTrace();
             MainLogger.error("MP", ex);
         }
+    }
 
+    private ProducerRecord<String,String> GetProducerRecord(JsonObject json) {
+        String type = json.get(Common.TYPE).getAsString();
+        switch (type.toLowerCase()) {
+            case JsonTypes.INVENTARIZATION:
+                return new ProducerRecord<>(KafkaTopics.INVENTORYPOINT, type, json.toString());
+            default:
+                return new ProducerRecord<>(KafkaTopics.DATAWRITER, type, json.toString());
+        }
     }
 }
