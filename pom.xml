@@ -31,7 +31,7 @@
       <artifactId>oslms-utils</artifactId>
       <version>1.0.1</version>
       <scope>system</scope>
-      <systemPath>${basedir}/lib/oslms-utils-1.0.1.jar</systemPath>
+      <systemPath>${pom.basedir}/lib/oslms-utils-1.0.1.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.apache.kafka</groupId>
