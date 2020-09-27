@@ -23,6 +23,11 @@
       <id>confluent</id>
       <url>https://packages.confluent.io/maven/</url>
     </repository>
+    <repository>
+      <id>local-repo</id>
+      <name>project</name>
+      <url>file:${pom.basedir}/lib</url>
+    </repository>
   </repositories>
 
   <dependencies>
@@ -30,8 +35,6 @@
       <groupId>ru.sberbank</groupId>
       <artifactId>oslms-utils</artifactId>
       <version>1.0.1</version>
-      <scope>system</scope>
-      <systemPath>${pom.basedir}/lib/oslms-utils-1.0.1.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.apache.kafka</groupId>
